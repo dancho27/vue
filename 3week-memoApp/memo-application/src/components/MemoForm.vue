@@ -33,15 +33,16 @@ export default {
       this.content = '';
     },
     addMemo(){
+        // const id = new Date().getTime();
         const { title, content } = this; //this로 할당
-        const id = new Date().getTime();
         const isEmpty = title.length <= 0 || content.length <= 0;
         if(isEmpty){
             return false;
         }    
-        this.$emit('addMemo', {id, title, content}); 
+        //this.$emit('addMemo', {id, title, content}); 
         // ★ addMemo 이벤트 발생시키고 id, title, content를 부모컴포넌트(MemoApp.vue)에 넘긴다.
         // ★ 그럼 부모컴포넌트(MemoApp.vue)에서 <memo-form @addMemo="addMemo"/> 이렇게 연결을 해서 addMemo 메소드를 받은 데이타를 가지고 실행시킬 수 있다. 
+        this.$emit('addMemo', {title, content});
         this.resetFields();
     }
   }

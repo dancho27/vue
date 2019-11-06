@@ -16,14 +16,17 @@
 <script>
 export default{
     name: 'Memo',
-    data(){
-        return{
-            isEditing: false
-        }
-    },
+    // data(){
+    //     return{
+    //         isEditing: false
+    //     }
+    // },
     props: {
         memo: {
-            type: Object // ★object 대소문자 주의..
+            type: Object
+        },
+        editingId:{
+            type: Number
         }
     },
     methods:{
@@ -32,7 +35,8 @@ export default{
             this.$emit('deleteMemo', id);
         },
         handleDblClick(){
-            this.isEditing = true;
+            // this.isEditing = true;
+            this.$emit('setEditingId', this.memo.id)
             this.$nextTick(()=> {
                 this.$refs.content.focus(); //데이터 변경에 따른 컴포넌트 재렌더링 순서가 보장 되지 않아서 $refs.content에 접근할 수 없다. 이때 nextTick을 이용해서 해결할 수 있다.
             })
@@ -44,10 +48,17 @@ export default{
                 return false;
             }
             this.$emit('updateMemo', {id, content});
-            this.isEditing = false;
+            //this.isEditing = false;
+            this.$refs.content.blur(); //인풋에 포커스 제거
         },
         handleBlur(){
-            this.isEditing = false;
+            //this.isEditing = false;
+            this.$emit('resetEditingId'); //id값을 초기화 해주는 부모 이벤트 리스터 실행
+        }
+    },
+    computed:{
+        isEditing (){
+            return this.memo.id === this.editingId;
         }
     }
 }
