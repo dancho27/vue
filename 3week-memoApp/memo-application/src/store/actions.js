@@ -14,7 +14,7 @@ export function fetchMemos({ commit }){
 export function addMemo({ commit }, payload){
     memoAPICore.post('/', payload)
       .then(res => {
-        commit(ADD_MEMO, res.data);
+        commit(ADD_MEMO, res.data);  //API 응답 내의 메모 데이터를 commit 메소드를 통해 변이시킨다. 
     })
 }
 export function deleteMemo({ commit }, id){

@@ -15,7 +15,7 @@ export default{
     },
     [DELETE_MEMO](state, id){
         const targetIndex = state.memos.findIndex(v => v.id === id);
-        state.memos.splice(targetIndex, 1);
+        state.memos.splice(targetIndex, 1); //메모 상태는 MemoApp 컴포넌트가 아닌 스토어의 상태로 관리하고 있으므로 this.memos -> state.memos로 변경
     },
     [EDIT_MEMO](state, payload){
         const { id, content} = payload;

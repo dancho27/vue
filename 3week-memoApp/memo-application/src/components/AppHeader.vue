@@ -10,7 +10,7 @@ export default{
     name: 'AppHeader',
     computed: {
         ...mapGetters([
-            'getMemoCount'
+            'getMemoCount' //getters.js에 있는 getMemoCount
         ])
     }
 };

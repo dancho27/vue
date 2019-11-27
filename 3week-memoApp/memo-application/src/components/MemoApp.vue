@@ -1,6 +1,6 @@
 <template>
   <div class="memo-app">
-    <memo-form @addMemo="addMemo"/>
+    <memo-form @addMemo="addMemo"/> <!-- action.js의 addMemo -->
     <ul class="memo-list">
       <memo v-for="memo in memos"
             :key="memo.id"
