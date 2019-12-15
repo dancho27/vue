@@ -1,6 +1,6 @@
 <template>
     <div class="memo-form">
-        <form>
+        <form @submit.prevent="addMemo">
         <fieldset>
             <div>
             <input class="memo-form__title-form"
@@ -12,7 +12,7 @@
                         placeholder="메모의 내용을 입력해주세요."/>
             <button type="reset"><i class="fas fa-sync-alt"></i></button>
             </div>
-            <button type="submit" v-on:click="addMemo">등록하기</button>
+            <button type="submit" >등록하기</button>
         </fieldset>
         </form>
     </div>
@@ -27,9 +27,15 @@ export default{
         }
     },
     methods:{
+        resetFields(){
+          this.memoTitle = '';
+          this.memoText = '';
+        },
         addMemo: function (event){
             const {memoTitle, memoText} = this;
-            this.$emit('addMemo', {memoTitle, memoText})
+            const id = new Date().getTime();
+            this.$emit('addMemoFunc', {id, memoTitle, memoText})
+            this.resetFields();
             // alert(this.memoTitle);
             // alert(this.memoText);
         }
