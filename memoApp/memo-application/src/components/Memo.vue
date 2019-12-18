@@ -40,7 +40,7 @@ export default{
       doubleClick(){
         this.edit = true;
         this.$nextTick(()=>{ //데이터 변경에 따른 컴포넌트 재렌더링 순서가 보장 되지 않기 떄문에 nextTick을 사용하여 DOM 업데이트 후 처리를 할수 있다.
-          this.$refs.memoTextValue.focus();
+          this.$refs.memoTextValue.focus(); //refs로 DOM에 접근한다.
         })
       },
       outFocus(){

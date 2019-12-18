@@ -58,6 +58,33 @@ export default{
 
     }
 }
+
+/* 
+array.slice(start, end)  : start 요소부터 end 바로 전 요소까지 선택하여 새로운 배열을 만든다(얕은복사)
+                         : 음수값은 마지막 요소를 기준으로 선택  
+ex)
+var arr = [1, 2, 3, 4, 5, 6];
+arr.slice(1,4) // 결과 :  [2, 3, 4] : 1번째 요소부터 4번째 전까지
+arr.slice(2) // 결과 :  [3, 4, 5, 6] : 2번째 요소부터 끝까지
+arr.slice(-4, -1) // 결과 :  [3, 4, 5] : 뒤에서 4번째 뒤부터 뒤에서 1번째 까지 
+
+array.splice( start, count ) : 배열의 기존 요소를 삭제하거나 교체하거나 새 요소를 추가하여 배열의 내용을 변경한다.
+ex)
+var a = [0, 1, 2, 3, 4, 5];
+var b = a.splice(2, 3); : 2번째 요소부터 3개 빼내기
+var c  = [0, 1, 2, 3, 4, 5];
+var c2  = a.splice(1, 2, 'abc', 'def'); : 1번째 요소부터 2개 빼내고 abc랑 def를 각각 넣어준다.
+
+console.log(a); // 결과 : [0, 1, 5] 
+console.log(b); // 결과 : [2, 3, 4]
+console.log(c); // 결과 : [0, "abc", "def", 3, 4, 5]
+console.log(c2); // 결과 : [1, 2]
+
+
+
+...을 붙여주면 배열안에 요소를 배열에서 풀어준다. (spread 호출)
+
+*/ 
 </script>
 <style scoped>
   .memo-list {
