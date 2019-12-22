@@ -15,6 +15,11 @@
 <script>
 import MemoForm from './MemoForm';
 import Memo from './Memo';
+import axios from 'axios';
+
+const memoAPICore = axios.create({ // axios 객체생성
+    baseURL: 'http://localhost:8000/api/memos'
+})
 
 export default{
     name:'MemoApp',
@@ -27,35 +32,46 @@ export default{
             memos:[]
         }
     },
+    created(){
+        // this.memos = localStorage.memos ? JSON.parse(localStorage.memos) : [];
+        
+        // axios 객체의 get 메소드 이용하여 데이터를 받아온다.
+        memoAPICore.get('/')
+            .then(res => {
+                this.memos = res.data; //받아온 데이터를 data의 memos에 저장
+            });
+    },
     methods:{
         // 저장 1) addMemo,storeMemo  => memos[]에 추가할 데이터를 넣는다
         addMemo(payload){
-            this.memos.push(payload);
-            //console.log(this.memos);
-            this.storeMemo();
+            // axios 객체의 post 메소드를 이용하여 데이터를 추가한다
+            memoAPICore.post('/', payload)
+                .then(res => {
+                    this.memos.push(res.data); //메모 생성후 memos에 추가
+                })
+            //this.storeMemo();
         },
         storeMemo(){
             const memosToString = JSON.stringify(this.memos);
-            //const memosToString = this.memos;
-            //console.log("memoToString : " + memosToString);
             localStorage.setItem('memos', memosToString);
         },
         // 삭제 3) 전달받은 id와 memos에 있는 id 매칭후 memos[] 해당 id 제거후에 다시 storeMemo을 하여 setItem 한다.
         deleteMemo(payload){
-            //alert('deleteMemoFunc실행되써요');
             const targetIndex = this.memos.findIndex(v => v.id === payload);
             this.memos.splice(targetIndex, 1);
             this.storeMemo();
         },
-        // 수정 5) 전달받은 id와 memos에 있는 id 매칭 후, 매칭된 id의 데이타에 수정된 memoText를 넣어준다.
+        // 수정 5) 전달받은 id와 memos에 있는 id 매칭 후, 매칭된 id의 데이타에 수정된 content를 넣어준다.
         updateMemo(payload){
-            const { id, memoText} = payload;
+            const { id, content} = payload;
             const targetIndex = this.memos.findIndex(v => v.id === id);
             const updatedMemo = this.memos[targetIndex];
-            this.memos.splice(targetIndex, 1, { ...updatedMemo, memoText });
+            // console.dir('updatedMemo : ' + JSON.stringify(updatedMemo))
+            // console.log('content : ' + content)
+            // console.dir('this.memos : ' + JSON.stringify(this.memos))
+            this.memos.splice(targetIndex, 1, { ...updatedMemo, content }); //{}으로 감싸는 형태 기억
             this.storeMemo();
         }
-
     }
 }
 

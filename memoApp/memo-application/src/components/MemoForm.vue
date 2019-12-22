@@ -5,10 +5,10 @@
             <div>
             <input class="memo-form__title-form"
                     type="text"
-                    v-model="memoTitle"
+                    v-model="title"
                     placeholder="메모의 제목을 입력해주세요."/>
             <textarea class="memo-form__content-form"
-                        v-model="memoText"
+                        v-model="content"
                         placeholder="메모의 내용을 입력해주세요."/>
             <button type="reset"><i class="fas fa-sync-alt"></i></button>
             </div>
@@ -22,22 +22,19 @@ export default{
     name:'MemoForm',
     data(){
         return{
-            memoTitle: '',
-            memoText: '',
+            title: '',
+            content: '',
         }
     },
     methods:{
         resetFields(){
-          this.memoTitle = '';
-          this.memoText = '';
+          this.title = '';
+          this.content = '';
         },
         addMemo: function (event){
-            const {memoTitle, memoText} = this;
-            const id = new Date().getTime();
-            this.$emit('addMemoFunc', {id, memoTitle, memoText})
+            const {title, content} = this;
+            this.$emit('addMemoFunc', {title, content})
             this.resetFields();
-            // alert(this.memoTitle);
-            // alert(this.memoText);
         }
     }
 }
