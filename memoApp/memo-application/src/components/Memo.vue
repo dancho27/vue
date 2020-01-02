@@ -33,8 +33,7 @@ export default{
       // 삭제 1) deleteMemo 클릭시 부모컴포넌트에 memoAA의 id를 넘긴다
       deleteMemo(){
           const id = this.memoAA.id;
-          this.$emit('deleteMemoFunc', {id})
-          
+          this.$emit('deleteMemoFunc', id) // ★★★{id}하면 404에러남 
       },
       // 수정 2) edit 변수를 true로 변환하여 content는 숨기고 input value 노출. 그후에 nextTick 이용해서 input value에 포커싱
       doubleClick(){

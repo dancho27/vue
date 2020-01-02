@@ -7,7 +7,7 @@
                   :key="memoZZ.id"
                   :memoAA="memoZZ"
                   v-on:deleteMemoFunc="deleteMemo"
-                  v-on:updateMemoFunc="updateMemo"></memo> <!-- 삭제 2) deleteMemoFunc 호출시 deteMemo 메소드 실행시킨다-->
+                  v-on:updateMemoFunc="updateMemo"/> <!-- 삭제 2) deleteMemoFunc 호출시 deteMemo 메소드 실행시킨다-->
         </ul>
     </div>
 </template>
@@ -51,24 +51,25 @@ export default{
                 })
             //this.storeMemo();
         },
-        storeMemo(){
-            const memosToString = JSON.stringify(this.memos);
-            localStorage.setItem('memos', memosToString);
-        },
+        // storeMemo(){
+        //     const memosToString = JSON.stringify(this.memos);
+        //     localStorage.setItem('memos', memosToString);
+        // },
         // 삭제 3) 전달받은 id와 memos에 있는 id 매칭후 memos[] 해당 id 제거후에 다시 storeMemo을 하여 setItem 한다.
-        deleteMemo(payload){
-            const targetIndex = this.memos.findIndex(v => v.id === payload);
-            this.memos.splice(targetIndex, 1);
-            this.storeMemo();
+        deleteMemo(id){
+            const targetIndex = this.memos.findIndex(v => v.id === id);
+            memoAPICore.delete(`/${id}`) // 삭제 타겟과 일치하는 id값을 delete와 함께 요청 (실패할수도 있음)
+                .then(() => {
+                    //정상적으로 요청되었다면 memos 배열에서 해당 메모 삭제
+                    this.memos.splice(targetIndex, 1);
+                })
+                //this.storeMemo();
         },
         // 수정 5) 전달받은 id와 memos에 있는 id 매칭 후, 매칭된 id의 데이타에 수정된 content를 넣어준다.
         updateMemo(payload){
             const { id, content} = payload;
             const targetIndex = this.memos.findIndex(v => v.id === id);
             const updatedMemo = this.memos[targetIndex];
-            // console.dir('updatedMemo : ' + JSON.stringify(updatedMemo))
-            // console.log('content : ' + content)
-            // console.dir('this.memos : ' + JSON.stringify(this.memos))
             this.memos.splice(targetIndex, 1, { ...updatedMemo, content }); //{}으로 감싸는 형태 기억
             this.storeMemo();
         }

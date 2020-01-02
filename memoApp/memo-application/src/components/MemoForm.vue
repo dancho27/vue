@@ -31,7 +31,7 @@ export default{
           this.title = '';
           this.content = '';
         },
-        addMemo: function (event){
+        addMemo(){
             const {title, content} = this;
             this.$emit('addMemoFunc', {title, content})
             this.resetFields();

@@ -14,11 +14,6 @@ export default {
   components: {
     AppHeader,
     MemoApp
-  },
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
   }
 }
 </script>
