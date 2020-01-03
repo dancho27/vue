@@ -48,6 +48,7 @@ export default{
             memoAPICore.post('/', payload)
                 .then(res => {
                     this.memos.push(res.data); //메모 생성후 memos에 추가
+                    this.$emit('change', this.memos.length);
                 })
             //this.storeMemo();
         },
@@ -62,6 +63,7 @@ export default{
                 .then(() => {
                     //정상적으로 요청되었다면 memos 배열에서 해당 메모 삭제
                     this.memos.splice(targetIndex, 1);
+                    this.$emit('change', this.memos.length);
                 })
                 //this.storeMemo();
         },
