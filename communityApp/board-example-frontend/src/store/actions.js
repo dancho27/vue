@@ -9,7 +9,8 @@
 import api from '@/api'
 import { 
     FETCH_POST_LIST ,
-    FETCH_POST
+    FETCH_POST,
+    SET_ACCESS_TOKEN
 } from './mutations-types'
 
 export default{
@@ -24,5 +25,13 @@ export default{
             .then(res => {
                 commit(FETCH_POST, res.data)
             })
+    },
+    signin ({ commit }, payload){
+        const { email, password } = payload
+        return api.post('/auth/signin', { email, password })
+            .then(res => {
+                const { accessToken } = res.data
+                commit(SET_ACCESS_TOKEN, accessToken)
+            }) 
     }
 }

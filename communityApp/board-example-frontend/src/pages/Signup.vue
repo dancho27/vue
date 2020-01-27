@@ -19,7 +19,7 @@ export default {
                 .then(res => {
                     //회원가입 성공
                     alert('회원가입이 완료되었습니다.');
-                    this.$router.push({ name: 'Signin' })
+                    this.$router.push({ name: 'Signin' }) //로그인페이지로 이동
                 })
                 .catch(err => {
                     //회원가입 실패시
