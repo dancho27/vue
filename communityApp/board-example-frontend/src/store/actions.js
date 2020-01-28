@@ -10,7 +10,8 @@ import api from '@/api'
 import { 
     FETCH_POST_LIST ,
     FETCH_POST,
-    SET_ACCESS_TOKEN
+    SET_ACCESS_TOKEN,
+    SET_MY_INFO
 } from './mutations-types'
 
 export default{
@@ -32,6 +33,18 @@ export default{
             .then(res => {
                 const { accessToken } = res.data
                 commit(SET_ACCESS_TOKEN, accessToken)
+
+                //사용자 정보 요청
+                return api.get('/users/me')
+            }).then(res=>{
+                //사용자 정보 요청이 성공했다면 변이를 사용하여 스토어에 사용자 정보를 저장
+                commit(SET_MY_INFO, res.data)
             }) 
+    },
+    signinByToken({ commit }, token){
+        commit(SET_ACCESS_TOKEN, token)
+        return api.get('/users/me').then(res => {
+            commit(SET_MY_INFO, res.data)
+        })
     }
 }
