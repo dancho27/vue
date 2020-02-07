@@ -14,7 +14,8 @@ import {
     SET_MY_INFO,
     DESTROY_ACCESS_TOKEN,
     DESTROY_MY_INFO,
-    UPDATE_COMMENT
+    UPDATE_COMMENT,
+    EDIT_COMMENT
 } from './mutations-types'
 
 export default{
@@ -59,5 +60,12 @@ export default{
         return api.post(`/posts/${postId}/comments`, {contents: comment }).then(res => {
             commit(UPDATE_COMMENT, res.data)
         })
+    },
+    editComment({commit, state}, { commentId, comment }){
+        const postId = state.post.id
+        return api.put(`/posts/${postId}/comments/${commentId}`, {contents: comment})
+            .then(res => {
+                commit(EDIT_COMMENT, res.data)
+            })
     }
 }
