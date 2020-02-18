@@ -1,5 +1,5 @@
 ### VUEX 흐름 정리
-![vuex 흐름]](./img/vuex.jpg)
+![vuex 흐름](./img/vuex.jpg)
 
 ### actions의 사용 이유?
 - 비동기적인 호출이 필요할때 사용
